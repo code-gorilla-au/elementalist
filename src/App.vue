@@ -1,13 +1,17 @@
 <template>
   <h1>Elementalist</h1>
+  <Game />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Game from '@/components/Game.vue';
 
 export default defineComponent({
   name: 'App',
-  components: {},
+  components: {
+    Game,
+  },
 });
 </script>
 
