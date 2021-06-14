@@ -40,7 +40,8 @@ export function generateDungeon(scene: Phaser.Scene, dungeonConfig: DungeonConfi
   const map = scene.make.tilemap({ key: dungeonConfig.name });
   const tileSet = map.addTilesetImage(tileSetLabel, dungeonConfig.tileSet);
   const ground = map.createLayer(layerGround, tileSet, 0, 0);
-  ground.setCollisionByProperty({ collides: true });
+  ground.setDepth(2);
+  ground.setCollisionByProperty({ collides: true }, true);
   scene.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
   return {
     width: map.widthInPixels,
@@ -55,6 +56,7 @@ export function setCamera(
   dungeon: Dungeon,
 ) {
   scene.cameras.main.setBounds(0, 0, dungeon.width, dungeon.height);
+  scene.cameras.main.zoomTo(2, 1000);
   scene.cameras.main.startFollow(player);
 }
 

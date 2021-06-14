@@ -8,10 +8,11 @@ const config: Phaser.Types.Core.GameConfig = {
   width: 800,
   height: 600,
   parent: '',
+  pixelArt: true,
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 300 },
+      gravity: { y: 0 },
       debug: true,
     },
   },

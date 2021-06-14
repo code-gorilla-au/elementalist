@@ -21,7 +21,10 @@ export default class BootScene extends Phaser.Scene {
 
     this.load.image(TILE_SET_1, TileSet1);
     this.load.tilemapTiledJSON(LEVEL_1, DungeonMap1);
-    this.load.spritesheet(ELEMENTALIST_WIND, ElementalistWind, { frameHeight: 32, frameWidth: 32 });
+    this.load.spritesheet(ELEMENTALIST_WIND, ElementalistWind, {
+      frameHeight: 112,
+      frameWidth: 224,
+    });
 
     const progress = this.add.graphics();
     const progressBox = this.add.graphics();

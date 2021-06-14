@@ -29,14 +29,15 @@ export default class DungeonScene extends Phaser.Scene {
     const playerConfig = {
       scene: this,
       x: 100,
-      y: 100,
+      y: 300,
       key: ELEMENTALIST_WIND,
     };
     const inputs = setControls(this.input);
     this.player = new ElementalistWind(playerConfig, inputs, evenBus);
+    this.player.setDepth(2);
     this.anims.create({
       key: `${ELEMENTALIST_WIND}_idle`,
-      frames: this.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 1, end: 4 }),
+      frames: this.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 0, end: 7 }),
       frameRate: 10,
     });
     setCamera(this, this.player, map);
