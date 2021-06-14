@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Title from '@/game/scenes/title';
 import Boot from '@/game/scenes/boot';
+import Dungeon from '@/game/scenes/dungeon';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -15,7 +16,7 @@ const config: Phaser.Types.Core.GameConfig = {
     },
   },
 };
-config.scene = [Boot, Title];
+config.scene = [Boot, Title, Dungeon];
 
 export default class Game extends Phaser.Game {
   constructor(containerId: string) {
