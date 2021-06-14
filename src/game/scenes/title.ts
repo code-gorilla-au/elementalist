@@ -8,7 +8,10 @@ export default class TitleScene extends Phaser.Scene {
     });
   }
   create() {
-    const text = this.add.text(100, 100, 'flashbank');
+    const width = this.sys.game.canvas.width;
+    const height = this.sys.game.canvas.height;
+    const text = this.add.text(width / 2, height / 2, 'flashbang');
     text.setColor('white');
+    text.setOrigin(0.5, 0.5);
   }
 }
