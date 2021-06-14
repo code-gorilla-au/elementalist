@@ -1,5 +1,9 @@
 import Phaser from 'phaser';
 import { SCENE_BOOT, SCENE_TITLE } from '@/lib/constants/scenes';
+import { DUNGEON_MAP } from '@/lib/constants/maps';
+import { ELEMENTALIST_WIND } from '@/lib/constants/characters';
+import DungeonMap from '@/game/assets/dungeon.json';
+import ElementalistWind from '@/game/assets/wind_sprite_sheet_224x112.png';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
@@ -13,6 +17,10 @@ export default class BootScene extends Phaser.Scene {
     const height = this.sys.game.canvas.height;
     const centerX = width / 2;
     const centerY = height / 2;
+
+    this.load.tilemapTiledJSON(DUNGEON_MAP, DungeonMap);
+    this.load.spritesheet(ELEMENTALIST_WIND, ElementalistWind, { frameHeight: 32, frameWidth: 32 });
+
     const progress = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
