@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import { CharacterConfig, ELEMENTALIST_WIND } from '@/lib/characters';
 import { InputControls } from '@/lib/dungeon';
 
-export default class Wind extends Phaser.GameObjects.Sprite {
+export default class ElementalistWind extends Phaser.GameObjects.Sprite {
   constructor(
     config: CharacterConfig,
     inputs?: InputControls,

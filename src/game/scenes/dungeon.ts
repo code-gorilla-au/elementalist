@@ -9,10 +9,10 @@ import {
   setControls,
 } from '@/lib/dungeon';
 import { ELEMENTALIST_WIND } from '@/lib/characters';
-import Wind from '@/game/characters/wind';
+import ElementalistWind from '@/game/characters/wind';
 
 export default class DungeonScene extends Phaser.Scene {
-  player: Wind;
+  player: ElementalistWind;
   constructor() {
     super({
       key: SCENE_DUNGEON,
@@ -33,7 +33,7 @@ export default class DungeonScene extends Phaser.Scene {
       key: ELEMENTALIST_WIND,
     };
     const inputs = setControls(this.input);
-    this.player = new Wind(playerConfig, inputs, evenBus);
+    this.player = new ElementalistWind(playerConfig, inputs, evenBus);
     this.anims.create({
       key: `${ELEMENTALIST_WIND}_idle`,
       frames: this.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 1, end: 4 }),
