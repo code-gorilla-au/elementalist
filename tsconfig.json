@@ -11,6 +11,11 @@
     "types": [
       "node",
     ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
     "lib": [
       "esnext",
       "dom"
