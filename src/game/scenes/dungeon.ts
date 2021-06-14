@@ -12,10 +12,17 @@ import { ELEMENTALIST_WIND } from '@/lib/characters';
 import Wind from '@/game/characters/wind';
 
 export default class DungeonScene extends Phaser.Scene {
+  player: Wind;
   constructor() {
     super({
       key: SCENE_DUNGEON,
     });
+    const playerConfig = {
+      scene: this,
+      x: 100,
+      y: 100,
+      key: ELEMENTALIST_WIND,
+    };
   }
   create() {
     const evenBus = new Phaser.Events.EventEmitter();
@@ -32,7 +39,16 @@ export default class DungeonScene extends Phaser.Scene {
       key: ELEMENTALIST_WIND,
     };
     const inputs = setControls(this.input);
-    const player = new Wind(playerConfig, inputs, evenBus);
-    setCamera(this, player, map);
+    this.player = new Wind(playerConfig, inputs, evenBus);
+    this.anims.create({
+      key: `${ELEMENTALIST_WIND}_idle`,
+      frames: this.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 1, end: 1 }),
+      frameRate: 10,
+    });
+    setCamera(this, this.player, map);
+    this.physics.add.collider(this.player, map.ground);
+  }
+  update() {
+    this.player.update();
   }
 }
