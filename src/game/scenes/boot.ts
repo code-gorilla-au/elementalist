@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { SCENE_BOOT } from '@/lib/constants/scenes';
+import { SCENE_BOOT, SCENE_TITLE } from '@/lib/constants/scenes';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
@@ -9,6 +9,10 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload() {
+    const width = this.sys.game.canvas.width;
+    const height = this.sys.game.canvas.height;
+    const centerX = width / 2;
+    const centerY = height / 2;
     const progress = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
