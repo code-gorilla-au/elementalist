@@ -17,12 +17,6 @@ export default class DungeonScene extends Phaser.Scene {
     super({
       key: SCENE_DUNGEON,
     });
-    const playerConfig = {
-      scene: this,
-      x: 100,
-      y: 100,
-      key: ELEMENTALIST_WIND,
-    };
   }
   create() {
     const evenBus = new Phaser.Events.EventEmitter();
@@ -42,7 +36,7 @@ export default class DungeonScene extends Phaser.Scene {
     this.player = new Wind(playerConfig, inputs, evenBus);
     this.anims.create({
       key: `${ELEMENTALIST_WIND}_idle`,
-      frames: this.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 1, end: 1 }),
+      frames: this.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 1, end: 4 }),
       frameRate: 10,
     });
     setCamera(this, this.player, map);
