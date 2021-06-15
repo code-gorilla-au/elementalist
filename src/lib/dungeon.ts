@@ -40,9 +40,8 @@ export function generateDungeon(scene: Phaser.Scene, dungeonConfig: DungeonConfi
   const map = scene.make.tilemap({ key: dungeonConfig.name });
   const tileSet = map.addTilesetImage(tileSetLabel, dungeonConfig.tileSet);
   const ground = map.createLayer(layerGround, tileSet, 0, 0);
-  ground.width;
-  ground.setDepth(2);
-  ground.setCollisionByProperty({ collides: true }, true);
+  ground.setCollisionByProperty({ collides: true });
+  console.log(ground);
   scene.physics.world.setBounds(0, 0, ground.width, ground.height);
   return {
     width: map.widthInPixels,
