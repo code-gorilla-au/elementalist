@@ -13,6 +13,7 @@ export default class ElementalistWind extends Phaser.Physics.Arcade.Sprite {
     config.scene.add.existing(this);
     config.scene.physics.add.existing(this);
     this.setCollideWorldBounds(true);
+    this.setCircle(15, 95, 80);
   }
   update() {
     this.anims.play(`${ELEMENTALIST_WIND}_idle`, true);
