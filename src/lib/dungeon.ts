@@ -44,7 +44,6 @@ export function generateDungeon(scene: Phaser.Scene, dungeonConfig: DungeonConfi
   const ground = map.createLayer(layerGround, tileSet, 0, 0);
   const background = map.createLayer(layerBackground, tileSet, 0, 0);
   ground.setCollisionByExclusion([-1], true);
-  console.log(ground);
   scene.physics.world.setBounds(0, 0, ground.width, ground.height);
   return {
     width: map.widthInPixels,
