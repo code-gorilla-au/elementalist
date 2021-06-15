@@ -9,6 +9,7 @@ export interface Dungeon {
   width: number;
   height: number;
   ground: Phaser.Tilemaps.TilemapLayer;
+  background: Phaser.Tilemaps.TilemapLayer;
 }
 
 export interface InputControls {
@@ -34,19 +35,22 @@ export type DungeonLevel = string;
 export type DungeonTileSet = string;
 
 const layerGround = 'ground';
+const layerBackground = 'background';
 const tileSetLabel = 'dungeon_tileset';
 
 export function generateDungeon(scene: Phaser.Scene, dungeonConfig: DungeonConfig): Dungeon {
   const map = scene.make.tilemap({ key: dungeonConfig.name });
   const tileSet = map.addTilesetImage(tileSetLabel, dungeonConfig.tileSet);
   const ground = map.createLayer(layerGround, tileSet, 0, 0);
-  ground.setCollisionByProperty({ collides: true });
+  const background = map.createLayer(layerBackground, tileSet, 0, 0);
+  ground.setCollisionByExclusion([-1], true);
   console.log(ground);
   scene.physics.world.setBounds(0, 0, ground.width, ground.height);
   return {
     width: map.widthInPixels,
     height: map.heightInPixels,
     ground,
+    background,
   };
 }
 

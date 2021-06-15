@@ -9,10 +9,10 @@ import {
   setControls,
 } from '@/lib/dungeon';
 import { ELEMENTALIST_WIND } from '@/lib/characters';
-import ElementalistWind from '@/game/characters/wind';
+import ElementalistWind from '@/game/characters/ElementalistWind';
 
 export default class DungeonScene extends Phaser.Scene {
-  player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  player: Phaser.Physics.Arcade.Sprite;
   constructor() {
     super({
       key: SCENE_DUNGEON,
@@ -33,7 +33,7 @@ export default class DungeonScene extends Phaser.Scene {
       key: ELEMENTALIST_WIND,
     };
     const inputs = setControls(this.input);
-    this.player = this.physics.add.sprite(100, 300, ELEMENTALIST_WIND);
+    this.player = new ElementalistWind(playerConfig, inputs, evenBus);
 
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
