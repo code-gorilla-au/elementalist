@@ -9,7 +9,10 @@ import {
   setControls,
 } from '@/lib/dungeon';
 import { ELEMENTALIST_WIND } from '@/lib/characters';
-import ElementalistWind, { elementalistWindAnimations } from '@/game/characters/ElementalistWind';
+import ElementalistWind, {
+  elementalistWindAnimations,
+  ElementalistWindDefence,
+} from '@/game/characters/ElementalistWind';
 
 export default class DungeonScene extends Phaser.Scene {
   player: Phaser.Physics.Arcade.Sprite;
@@ -19,7 +22,7 @@ export default class DungeonScene extends Phaser.Scene {
     });
   }
   create() {
-    const evenBus = new Phaser.Events.EventEmitter();
+    const eventBus = new Phaser.Events.EventEmitter();
     const dungeonConfig: DungeonConfig = {
       level: 1,
       name: LEVEL_1,
@@ -34,7 +37,9 @@ export default class DungeonScene extends Phaser.Scene {
       key: ELEMENTALIST_WIND,
     };
 
-    this.player = new ElementalistWind(playerConfig, inputs, evenBus);
+    this.player = new ElementalistWind(playerConfig, inputs, eventBus);
+    const defence = new ElementalistWindDefence(this.player, this, eventBus);
+    defence.create();
     elementalistWindAnimations(this);
 
     setCamera(this, this.player, map);

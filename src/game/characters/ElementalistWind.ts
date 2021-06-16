@@ -9,7 +9,10 @@ import {
   ELEMENTALIST_DEFENCE,
   ELEMENTALIST_FALL,
   movement,
+  combat,
   ELEMENTALIST_JUMP,
+  ELEMENTALIST_UTILITY,
+  ELEMENTALIST_ULTIMATE,
 } from '@/lib/characters';
 import { InputControls } from '@/lib/dungeon';
 
@@ -34,9 +37,34 @@ export default class ElementalistWind extends Phaser.Physics.Arcade.Sprite {
     this.speed = 200;
     this.eventBus = eventBus;
     this.inputs = inputs;
+    this.on('animationcomplete', handleAnimationComplete(this));
   }
   update() {
     movement(this, this.inputs);
+    combat(this, this.inputs);
+  }
+}
+
+export class ElementalistWindDefence extends Phaser.Physics.Arcade.Image {
+  evenBus: Phaser.Events.EventEmitter;
+  character: Phaser.Physics.Arcade.Sprite;
+  constructor(
+    character: Phaser.Physics.Arcade.Sprite,
+    scene: Phaser.Scene,
+    eventBus: Phaser.Events.EventEmitter,
+  ) {
+    super(scene, character.x, character.y, ELEMENTALIST_DEFENCE);
+    this.evenBus = eventBus;
+    this.character = character;
+  }
+  create() {
+    this.evenBus.on(ELEMENTALIST_DEFENCE, () => {
+      if (this.character.flipX) {
+        this.character.setVelocityX(-200);
+      } else {
+        this.character.setVelocityX(200);
+      }
+    });
   }
 }
 
@@ -73,4 +101,18 @@ export function elementalistWindAnimations(scene: Phaser.Scene) {
     frameRate: 10,
     repeat: -1,
   });
+}
+
+function handleAnimationComplete(character: ElementalistWind) {
+  return function events(event: any) {
+    const attackingAnimations = [
+      ELEMENTALIST_ATTACK,
+      ELEMENTALIST_DEFENCE,
+      ELEMENTALIST_UTILITY,
+      ELEMENTALIST_ULTIMATE,
+    ];
+    if (attackingAnimations.includes(event.key)) {
+      character.attacking = false;
+    }
+  };
 }

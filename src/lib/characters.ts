@@ -44,6 +44,31 @@ export interface Body {
   };
 }
 
+export function combat(character: Character, inputs: InputControls) {
+  if (inputs.attack.isDown && !character.attacking && isTouchingGround(character.body)) {
+    character.attacking = true;
+    character.play(ELEMENTALIST_ATTACK);
+    character.setVelocity(0, 0);
+  } else if (
+    inputs.justUp(inputs.utility) &&
+    !character.attacking &&
+    isTouchingGround(character.body)
+  ) {
+    character.attacking = true;
+    character.play(ELEMENTALIST_UTILITY);
+    character.eventBus.emit(ELEMENTALIST_UTILITY, character);
+    character.setVelocity(0, 0);
+  } else if (
+    inputs.justUp(inputs.defence) &&
+    !character.attacking &&
+    isTouchingGround(character.body)
+  ) {
+    character.attacking = true;
+    character.play(ELEMENTALIST_DEFENCE);
+    character.eventBus.emit(ELEMENTALIST_DEFENCE), character;
+  }
+}
+
 export function movement(character: Character, inputs: InputControls) {
   const isFalling = character.body.velocity.y > 0;
   const isJumping = character.body.velocity.y < 0;
