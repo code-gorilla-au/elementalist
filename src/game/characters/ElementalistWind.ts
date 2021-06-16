@@ -11,8 +11,7 @@ import {
   movement,
   combat,
   ELEMENTALIST_JUMP,
-  ELEMENTALIST_UTILITY,
-  ELEMENTALIST_ULTIMATE,
+  handleAnimationComplete,
 } from '@/lib/characters';
 import { InputControls } from '@/lib/dungeon';
 
@@ -31,13 +30,15 @@ export default class ElementalistWind extends Phaser.Physics.Arcade.Sprite {
     config.scene.physics.add.existing(this);
     this.setCollideWorldBounds(true);
     this.setCircle(15, 95, 80);
+    // this.enableBody(false, this.x, this.y, true, true);
 
     // attributes
     this.attacking = false;
     this.speed = 200;
     this.eventBus = eventBus;
     this.inputs = inputs;
-    this.on('animationcomplete', handleAnimationComplete(this));
+    // events
+    this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, handleAnimationComplete(this));
   }
   update() {
     movement(this, this.inputs);
@@ -101,18 +102,4 @@ export function elementalistWindAnimations(scene: Phaser.Scene) {
     frameRate: 10,
     repeat: -1,
   });
-}
-
-function handleAnimationComplete(character: ElementalistWind) {
-  return function events(event: any) {
-    const attackingAnimations = [
-      ELEMENTALIST_ATTACK,
-      ELEMENTALIST_DEFENCE,
-      ELEMENTALIST_UTILITY,
-      ELEMENTALIST_ULTIMATE,
-    ];
-    if (attackingAnimations.includes(event.key)) {
-      character.attacking = false;
-    }
-  };
 }

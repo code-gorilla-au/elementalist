@@ -19,6 +19,21 @@ export interface CharacterConfig {
   key: CharacterName;
 }
 
+const attackingAnimations = [
+  ELEMENTALIST_ATTACK,
+  ELEMENTALIST_DEFENCE,
+  ELEMENTALIST_UTILITY,
+  ELEMENTALIST_ULTIMATE,
+];
+
+export function handleAnimationComplete(character: Character) {
+  return function events(event: any) {
+    if (attackingAnimations.includes(event.key)) {
+      character.attacking = false;
+    }
+  };
+}
+
 export interface Character {
   attacking: boolean;
   speed: number;
@@ -45,27 +60,23 @@ export interface Body {
 }
 
 export function combat(character: Character, inputs: InputControls) {
-  if (inputs.attack.isDown && !character.attacking && isTouchingGround(character.body)) {
+  if (inputs.attack.isDown && isNotAttacking(character)) {
     character.attacking = true;
     character.play(ELEMENTALIST_ATTACK);
     character.setVelocity(0, 0);
-  } else if (
-    inputs.justUp(inputs.utility) &&
-    !character.attacking &&
-    isTouchingGround(character.body)
-  ) {
+  } else if (inputs.justUp(inputs.utility) && isNotAttacking(character)) {
     character.attacking = true;
     character.play(ELEMENTALIST_UTILITY);
     character.eventBus.emit(ELEMENTALIST_UTILITY, character);
     character.setVelocity(0, 0);
-  } else if (
-    inputs.justUp(inputs.defence) &&
-    !character.attacking &&
-    isTouchingGround(character.body)
-  ) {
+  } else if (inputs.justUp(inputs.defence) && isNotAttacking(character)) {
     character.attacking = true;
     character.play(ELEMENTALIST_DEFENCE);
     character.eventBus.emit(ELEMENTALIST_DEFENCE), character;
+  } else if (inputs.justUp(inputs.ultimate) && isNotAttacking(character)) {
+    character.attacking = true;
+    character.play(ELEMENTALIST_ULTIMATE);
+    character.eventBus.emit(ELEMENTALIST_ULTIMATE), character;
   }
 }
 
@@ -78,19 +89,19 @@ export function movement(character: Character, inputs: InputControls) {
     character.play(ELEMENTALIST_JUMP, true);
   }
 
-  if (inputs.up.isDown && !character.attacking && isTouchingGround(character.body)) {
+  if (inputs.up.isDown && isNotAttacking(character)) {
     character.setVelocityY(-character.speed);
   }
 
-  if (inputs.left.isDown && !character.attacking && isTouchingGround(character.body)) {
+  if (inputs.left.isDown && isNotAttacking(character)) {
     character.setFlipX(true);
     character.play(ELEMENTALIST_RUN, true);
     character.setVelocityX(-character.speed);
-  } else if (inputs.right.isDown && !character.attacking && isTouchingGround(character.body)) {
+  } else if (inputs.right.isDown && isNotAttacking(character)) {
     character.setFlipX(false);
     character.play(ELEMENTALIST_RUN, true);
     character.setVelocityX(character.speed);
-  } else if (!character.attacking && isTouchingGround(character.body)) {
+  } else if (isNotAttacking(character)) {
     character.play(ELEMENTALIST_IDLE, true);
     character.setVelocityX(0);
   }
@@ -100,4 +111,8 @@ function isTouchingGround(body: Body): boolean {
   const isOnGround = body.velocity.y === 0;
   const isPrevOnGround = body.deltaY() < 1 && body.deltaY() > 0;
   return isOnGround && isPrevOnGround;
+}
+
+function isNotAttacking(character: Character): boolean {
+  return !character.attacking && isTouchingGround(character.body);
 }
