@@ -7,7 +7,9 @@ import {
   ELEMENTALIST_RUN,
   ELEMENTALIST_ATTACK,
   ELEMENTALIST_DEFENCE,
+  ELEMENTALIST_FALL,
   movement,
+  ELEMENTALIST_JUMP,
 } from '@/lib/characters';
 import { InputControls } from '@/lib/dungeon';
 
@@ -56,7 +58,19 @@ export function elementalistWindAnimations(scene: Phaser.Scene) {
   });
   scene.anims.create({
     key: ELEMENTALIST_DEFENCE,
-    frames: scene.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 240, end: 246 }),
+    frames: scene.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 120, end: 125 }),
     frameRate: 10,
+  });
+  scene.anims.create({
+    key: ELEMENTALIST_JUMP,
+    frames: scene.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 60, end: 62 }),
+    frameRate: 10,
+    repeat: -1,
+  });
+  scene.anims.create({
+    key: ELEMENTALIST_FALL,
+    frames: scene.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 90, end: 92 }),
+    frameRate: 10,
+    repeat: -1,
   });
 }
