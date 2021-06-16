@@ -73,6 +73,6 @@ export function movement(character: Character, inputs: InputControls) {
 
 function isTouchingGround(body: Body): boolean {
   const isOnGround = body.velocity.y === 0;
-  const prevPosition = body.deltaY() < 1 && body.deltaY() > 0;
-  return isOnGround && prevPosition;
+  const isPrevOnGround = body.deltaY() < 1 && body.deltaY() > 0;
+  return isOnGround && isPrevOnGround;
 }
