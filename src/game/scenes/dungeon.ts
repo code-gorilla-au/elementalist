@@ -9,7 +9,7 @@ import {
   setControls,
 } from '@/lib/dungeon';
 import { ELEMENTALIST_WIND } from '@/lib/characters';
-import ElementalistWind from '@/game/characters/ElementalistWind';
+import ElementalistWind, { elementalistWindAnimations } from '@/game/characters/ElementalistWind';
 
 export default class DungeonScene extends Phaser.Scene {
   player: Phaser.Physics.Arcade.Sprite;
@@ -26,22 +26,17 @@ export default class DungeonScene extends Phaser.Scene {
       tileSet: TILE_SET_1,
     };
     const map = generateDungeon(this, dungeonConfig);
+    const inputs = setControls(this.input);
     const playerConfig = {
       scene: this,
       x: 100,
       y: 300,
       key: ELEMENTALIST_WIND,
     };
-    const inputs = setControls(this.input);
-    this.player = new ElementalistWind(playerConfig, inputs, evenBus);
 
-    this.player.setBounce(0.2);
-    this.player.setCollideWorldBounds(true);
-    this.anims.create({
-      key: `${ELEMENTALIST_WIND}_idle`,
-      frames: this.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 0, end: 7 }),
-      frameRate: 10,
-    });
+    this.player = new ElementalistWind(playerConfig, inputs, evenBus);
+    elementalistWindAnimations(this);
+
     setCamera(this, this.player, map);
     this.physics.add.collider(this.player, map.ground);
   }
