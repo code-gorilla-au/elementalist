@@ -8,12 +8,12 @@ import {
   setCamera,
   setControls,
 } from '@/lib/dungeon';
-import { ELEMENTALIST_WIND, CharacterSkill } from '@/lib/characters';
+import { ELEMENTALIST_WIND } from '@/lib/characters';
 import ElementalistWind, {
   elementalistWindAnimations,
   ElementalistWindAttack,
   ElementalistWindDefence,
-} from '@/game/characters/ElementalistWind';
+} from '@/game/characters/elementalistWind';
 
 export default class DungeonScene extends Phaser.Scene {
   character: Phaser.Physics.Arcade.Sprite;
