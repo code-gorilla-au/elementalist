@@ -52,7 +52,7 @@ export default class DungeonScene extends Phaser.Scene {
   }
   update() {
     this.character.update();
-    this.characterSkillGroup.getChildren().forEach((skill: CharacterSkill) => {
+    this.characterSkillGroup.getChildren().forEach((skill: Phaser.GameObjects.GameObject) => {
       skill.update();
     });
   }

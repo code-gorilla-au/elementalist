@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { InputControls } from '@/lib/game';
 export interface DungeonConfig {
   level: number;
   name: DungeonLevel;
@@ -11,21 +12,6 @@ export interface Dungeon {
   ground: Phaser.Tilemaps.TilemapLayer;
   background: Phaser.Tilemaps.TilemapLayer;
 }
-
-export interface InputControls {
-  left: Phaser.Input.Keyboard.Key;
-  right: Phaser.Input.Keyboard.Key;
-  up: Phaser.Input.Keyboard.Key;
-  down: Phaser.Input.Keyboard.Key;
-  attack: Phaser.Input.Keyboard.Key;
-  defence: Phaser.Input.Keyboard.Key;
-  utility: Phaser.Input.Keyboard.Key;
-  ultimate: Phaser.Input.Keyboard.Key;
-  justDown: InputUtility;
-  justUp: InputUtility;
-}
-
-export type InputUtility = (key: Phaser.Input.Keyboard.Key) => boolean;
 
 export const LEVEL_1: DungeonLevel = 'LEVEL_1';
 export const LEVEL_2: DungeonLevel = 'LEVEL_2';

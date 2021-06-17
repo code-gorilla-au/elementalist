@@ -14,7 +14,7 @@ import {
   handleAnimationComplete,
   ELEMENTALIST_UTILITY,
 } from '@/lib/characters';
-import { InputControls } from '@/lib/dungeon';
+import { GRAVITY, InputControls } from '@/lib/game';
 
 export default class ElementalistWind extends Phaser.Physics.Arcade.Sprite {
   attacking: boolean;
@@ -31,7 +31,6 @@ export default class ElementalistWind extends Phaser.Physics.Arcade.Sprite {
     config.scene.physics.add.existing(this);
     this.setCollideWorldBounds(true);
     this.setCircle(15, 95, 80);
-    // this.enableBody(false, this.x, this.y, true, true);
 
     // attributes
     this.attacking = false;
@@ -41,7 +40,7 @@ export default class ElementalistWind extends Phaser.Physics.Arcade.Sprite {
     // events
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, handleAnimationComplete(this));
   }
-  update() {
+  update(...args: any[]) {
     movement(this, this.inputs);
     combat(this, this.inputs);
   }
@@ -61,12 +60,12 @@ export class ElementalistWindAttack extends Phaser.Physics.Arcade.Image {
     scene.physics.add.existing(this);
     this.enableBody(false, this.x, this.y, false, false);
     this.setCircle(5);
-    this.setGravityY(-300);
+    this.setGravityY(-GRAVITY);
     this.evenBus.on(ELEMENTALIST_ATTACK, () => {
       this.enableBody(true, this.x, this.y, true, true);
     });
   }
-  update() {
+  update(...args: any[]) {
     let x;
     let y;
     if (this.character.flipX) {
