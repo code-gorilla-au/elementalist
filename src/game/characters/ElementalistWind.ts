@@ -58,16 +58,26 @@ export class ElementalistWindAttack extends Phaser.Physics.Arcade.Image {
     super(scene, character.x, character.y, ELEMENTALIST_ATTACK);
     this.evenBus = eventBus;
     this.character = character;
-    scene.add.existing(this);
     scene.physics.add.existing(this);
+    this.enableBody(false, this.x, this.y, false, false);
     this.setCircle(5);
     this.setGravityY(-300);
     this.evenBus.on(ELEMENTALIST_ATTACK, () => {
-      this.enableBody(false, this.character.x + 9, this.character.y + 9, true, true);
+      this.enableBody(true, this.x, this.y, true, true);
     });
   }
   update() {
-    this.setPosition(this.character.x + 20, this.character.y + 30);
+    let x;
+    let y;
+    if (this.character.flipX) {
+      x = this.character.x - 20;
+      y = this.character.y + 40;
+    } else {
+      x = this.character.x + 40;
+      y = this.character.y + 40;
+    }
+
+    this.setPosition(x, y);
   }
 }
 
