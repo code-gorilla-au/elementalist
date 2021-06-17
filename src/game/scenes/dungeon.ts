@@ -52,8 +52,11 @@ export default class DungeonScene extends Phaser.Scene {
     elementalistWindAnimations(this);
     bringerOfDeathAnimations(this);
     setCamera(this, this.character, map);
+
     this.physics.add.collider(this.character, map.ground);
     this.physics.add.collider(this.enemiesGroup, map.ground);
+    this.physics.add.collider(this.character, this.enemiesGroup);
+    this.physics.add.collider(this.characterSkillGroup, this.enemiesGroup);
   }
   update() {
     this.character.update();
