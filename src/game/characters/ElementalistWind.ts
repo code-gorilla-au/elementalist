@@ -12,6 +12,7 @@ import {
   combat,
   ELEMENTALIST_JUMP,
   handleAnimationComplete,
+  ELEMENTALIST_UTILITY,
 } from '@/lib/characters';
 import { InputControls } from '@/lib/dungeon';
 
@@ -88,6 +89,11 @@ export function elementalistWindAnimations(scene: Phaser.Scene) {
   scene.anims.create({
     key: ELEMENTALIST_DEFENCE,
     frames: scene.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 120, end: 125 }),
+    frameRate: 10,
+  });
+  scene.anims.create({
+    key: ELEMENTALIST_UTILITY,
+    frames: scene.anims.generateFrameNumbers(ELEMENTALIST_WIND, { start: 180, end: 196 }),
     frameRate: 10,
   });
   scene.anims.create({
