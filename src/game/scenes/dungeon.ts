@@ -14,15 +14,18 @@ import ElementalistWind, {
   ElementalistWindAttack,
   ElementalistWindDefence,
 } from '@/game/characters/elementalistWind';
+import BringerOfDeath, { bringerOfDeathAnimations } from '@/game/characters/bringerOfDeath';
 
 export default class DungeonScene extends Phaser.Scene {
   character: Phaser.Physics.Arcade.Sprite;
   characterSkillGroup: Phaser.GameObjects.Group;
+  enemiesGroup: Phaser.GameObjects.Group;
   constructor() {
     super({
       key: SCENE_DUNGEON,
     });
     this.characterSkillGroup = new Phaser.GameObjects.Group(this);
+    this.enemiesGroup = new Phaser.GameObjects.Group(this);
   }
   create() {
     const eventBus = new Phaser.Events.EventEmitter();
@@ -45,15 +48,20 @@ export default class DungeonScene extends Phaser.Scene {
     const attack = new ElementalistWindAttack(this.character, this, eventBus);
     this.characterSkillGroup.add(defence);
     this.characterSkillGroup.add(attack);
+    this.enemiesGroup.add(new BringerOfDeath(this, 150, 300));
     elementalistWindAnimations(this);
-
+    bringerOfDeathAnimations(this);
     setCamera(this, this.character, map);
     this.physics.add.collider(this.character, map.ground);
+    this.physics.add.collider(this.enemiesGroup, map.ground);
   }
   update() {
     this.character.update();
     this.characterSkillGroup.getChildren().forEach((skill: Phaser.GameObjects.GameObject) => {
       skill.update();
+    });
+    this.enemiesGroup.getChildren().forEach((enemy) => {
+      enemy.update();
     });
   }
 }

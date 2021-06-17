@@ -1,8 +1,15 @@
 import { InputControls } from '@/lib/game';
 export type CharacterName = string;
+export const BRINGER_OF_DEATH: CharacterName = 'BRINGER_OF_DEATH';
 export const ELEMENTALIST_WIND: CharacterName = 'ELEMENTALIST_WIND';
 
 export type CharacterAction = string;
+export const BRINGER_OF_DEATH_IDLE: CharacterAction = 'BRINGER_OF_DEATH_IDLE';
+export const BRINGER_OF_DEATH_RUN: CharacterAction = 'BRINGER_OF_DEATH_RUN';
+export const BRINGER_OF_DEATH_ATTACK: CharacterAction = 'BRINGER_OF_DEATH_ATTACK';
+export const BRINGER_OF_DEATH_HURT: CharacterAction = 'BRINGER_OF_DEATH_HURT';
+export const BRINGER_OF_DEATH_DEATH: CharacterAction = 'BRINGER_OF_DEATH_DEATH';
+
 export const ELEMENTALIST_IDLE: CharacterAction = 'ELEMENTALIST_IDLE';
 export const ELEMENTALIST_RUN: CharacterAction = 'ELEMENTALIST_RUN';
 export const ELEMENTALIST_JUMP: CharacterAction = 'ELEMENTALIST_JUMP';
