@@ -50,6 +50,10 @@ export interface Character {
   body: Body;
 }
 
+export interface CharacterSkill {
+  update(): void;
+}
+
 export interface Body {
   deltaY(): number;
   deltaX(): number;

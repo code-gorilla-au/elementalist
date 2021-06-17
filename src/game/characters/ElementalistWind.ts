@@ -47,6 +47,30 @@ export default class ElementalistWind extends Phaser.Physics.Arcade.Sprite {
   }
 }
 
+export class ElementalistWindAttack extends Phaser.Physics.Arcade.Image {
+  evenBus: Phaser.Events.EventEmitter;
+  character: Phaser.Physics.Arcade.Sprite;
+  constructor(
+    character: Phaser.Physics.Arcade.Sprite,
+    scene: Phaser.Scene,
+    eventBus: Phaser.Events.EventEmitter,
+  ) {
+    super(scene, character.x, character.y, ELEMENTALIST_ATTACK);
+    this.evenBus = eventBus;
+    this.character = character;
+    scene.add.existing(this);
+    scene.physics.add.existing(this);
+    this.setCircle(5);
+    this.setGravityY(-300);
+    this.evenBus.on(ELEMENTALIST_ATTACK, () => {
+      this.enableBody(false, this.character.x + 9, this.character.y + 9, true, true);
+    });
+  }
+  update() {
+    this.setPosition(this.character.x + 20, this.character.y + 30);
+  }
+}
+
 export class ElementalistWindDefence extends Phaser.Physics.Arcade.Image {
   evenBus: Phaser.Events.EventEmitter;
   character: Phaser.Physics.Arcade.Sprite;
@@ -58,8 +82,6 @@ export class ElementalistWindDefence extends Phaser.Physics.Arcade.Image {
     super(scene, character.x, character.y, ELEMENTALIST_DEFENCE);
     this.evenBus = eventBus;
     this.character = character;
-  }
-  create() {
     this.evenBus.on(ELEMENTALIST_DEFENCE, () => {
       if (this.character.flipX) {
         this.character.setVelocityX(-200);

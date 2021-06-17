@@ -8,18 +8,21 @@ import {
   setCamera,
   setControls,
 } from '@/lib/dungeon';
-import { ELEMENTALIST_WIND } from '@/lib/characters';
+import { ELEMENTALIST_WIND, CharacterSkill } from '@/lib/characters';
 import ElementalistWind, {
   elementalistWindAnimations,
+  ElementalistWindAttack,
   ElementalistWindDefence,
 } from '@/game/characters/ElementalistWind';
 
 export default class DungeonScene extends Phaser.Scene {
-  player: Phaser.Physics.Arcade.Sprite;
+  character: Phaser.Physics.Arcade.Sprite;
+  characterSkillGroup: Phaser.GameObjects.Group;
   constructor() {
     super({
       key: SCENE_DUNGEON,
     });
+    this.characterSkillGroup = new Phaser.GameObjects.Group(this);
   }
   create() {
     const eventBus = new Phaser.Events.EventEmitter();
@@ -37,15 +40,20 @@ export default class DungeonScene extends Phaser.Scene {
       key: ELEMENTALIST_WIND,
     };
 
-    this.player = new ElementalistWind(playerConfig, inputs, eventBus);
-    const defence = new ElementalistWindDefence(this.player, this, eventBus);
-    defence.create();
+    this.character = new ElementalistWind(playerConfig, inputs, eventBus);
+    const defence = new ElementalistWindDefence(this.character, this, eventBus);
+    const attack = new ElementalistWindAttack(this.character, this, eventBus);
+    this.characterSkillGroup.add(defence);
+    this.characterSkillGroup.add(attack);
     elementalistWindAnimations(this);
 
-    setCamera(this, this.player, map);
-    this.physics.add.collider(this.player, map.ground);
+    setCamera(this, this.character, map);
+    this.physics.add.collider(this.character, map.ground);
   }
   update() {
-    this.player.update();
+    this.character.update();
+    this.characterSkillGroup.getChildren().forEach((skill: CharacterSkill) => {
+      skill.update();
+    });
   }
 }
