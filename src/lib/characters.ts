@@ -1,4 +1,4 @@
-import { InputControls } from '@/lib/dungeon';
+import { InputControls } from '@/lib/game';
 export type CharacterName = string;
 export const ELEMENTALIST_WIND: CharacterName = 'ELEMENTALIST_WIND';
 
