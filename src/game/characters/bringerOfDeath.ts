@@ -22,7 +22,15 @@ export default class BringerOfDeath extends Phaser.Physics.Arcade.Sprite {
     this.speed = 50;
     this.hurt = false;
     this.strikeDistance = 50;
-    this.on(BRINGER_OF_DEATH_HURT, this.handleHurt);
+    this.on(BRINGER_OF_DEATH_HURT, () => {
+      this.hurt = true;
+      this.setVelocity(60, -50);
+      this.play(BRINGER_OF_DEATH_HURT, true);
+      setTimeout(() => {
+        this.hurt = false;
+        this.setVelocityX(0);
+      }, 500);
+    });
   }
   update(character: Character, enemy: Enemy): void {
     this.followCharacter(character);
@@ -39,15 +47,6 @@ export default class BringerOfDeath extends Phaser.Physics.Arcade.Sprite {
     }
     this.play(BRINGER_OF_DEATH_RUN, true);
     this.scene.physics.moveTo(this, character.x, character.y, this.speed);
-  }
-  private handleHurt(): void {
-    this.hurt = true;
-    this.setVelocity(60, -50);
-    this.play(BRINGER_OF_DEATH_HURT, true);
-    setTimeout(() => {
-      this.hurt = false;
-      this.setVelocityX(0);
-    }, 500);
   }
 }
 

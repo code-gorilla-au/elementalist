@@ -64,7 +64,12 @@ export class ElementalistWindAttack extends Phaser.Physics.Arcade.Sprite {
     this.setCircle(5);
     this.setGravityY(-GRAVITY);
     this.disableBody();
-    this.evenBus.on(ELEMENTALIST_ATTACK, this.handleAttack);
+    this.evenBus.on(ELEMENTALIST_ATTACK, () => {
+      this.enableBody(true, this.x, this.y, true, true);
+      setTimeout(() => {
+        this.disableBody();
+      }, 250);
+    });
   }
   update(...args: any[]) {
     let x;
@@ -78,12 +83,6 @@ export class ElementalistWindAttack extends Phaser.Physics.Arcade.Sprite {
     }
 
     this.setPosition(x, y);
-  }
-  private handleAttack() {
-    this.enableBody(true, this.x, this.y, true, true);
-    setTimeout(() => {
-      this.disableBody();
-    }, 250);
   }
 }
 
@@ -100,14 +99,13 @@ export class ElementalistWindDefence extends Phaser.Physics.Arcade.Image {
     this.evenBus = eventBus;
     this.character = character;
     this.speed = 200;
-    this.evenBus.on(ELEMENTALIST_DEFENCE, this.handleDefence);
-  }
-  private handleDefence() {
-    if (this.character.flipX) {
-      this.character.setVelocityX(-this.speed);
-    } else {
-      this.character.setVelocityX(this.speed);
-    }
+    this.evenBus.on(ELEMENTALIST_DEFENCE, () => {
+      if (this.character.flipX) {
+        this.character.setVelocityX(-this.speed);
+      } else {
+        this.character.setVelocityX(this.speed);
+      }
+    });
   }
 }
 
