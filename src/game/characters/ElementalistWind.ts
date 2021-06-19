@@ -34,7 +34,7 @@ export default class ElementalistWind extends Phaser.Physics.Arcade.Sprite {
 
     // attributes
     this.attacking = false;
-    this.speed = 200;
+    this.speed = 150;
     this.eventBus = eventBus;
     this.inputs = inputs;
     // events
@@ -86,6 +86,7 @@ export class ElementalistWindAttack extends Phaser.Physics.Arcade.Sprite {
 export class ElementalistWindDefence extends Phaser.Physics.Arcade.Image {
   evenBus: Phaser.Events.EventEmitter;
   character: Phaser.Physics.Arcade.Sprite;
+  private speed: number;
   constructor(
     character: Phaser.Physics.Arcade.Sprite,
     scene: Phaser.Scene,
@@ -94,11 +95,12 @@ export class ElementalistWindDefence extends Phaser.Physics.Arcade.Image {
     super(scene, character.x, character.y, ELEMENTALIST_DEFENCE);
     this.evenBus = eventBus;
     this.character = character;
+    this.speed = 200;
     this.evenBus.on(ELEMENTALIST_DEFENCE, () => {
       if (this.character.flipX) {
-        this.character.setVelocityX(-200);
+        this.character.setVelocityX(-this.speed);
       } else {
-        this.character.setVelocityX(200);
+        this.character.setVelocityX(this.speed);
       }
     });
   }
