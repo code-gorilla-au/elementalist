@@ -26,11 +26,6 @@ export default class BringerOfDeath extends Phaser.Physics.Arcade.Sprite {
     this.followCharacter(character);
   }
   private followCharacter(character: Character) {
-    if (this.body.deltaX() < 0) {
-      this.setFlipX(false);
-    } else if (this.body.deltaX() > 0) {
-      this.setFlipX(true);
-    }
     const distanceBetween = Phaser.Math.Distance.Between(character.x, character.y, this.x, this.y);
     if (this.hurt || distanceBetween <= this.strikeDistance) {
       this.play(BRINGER_OF_DEATH_IDLE, true);
