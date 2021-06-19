@@ -78,6 +78,7 @@ export function combat(character: Character, inputs: InputControls) {
   if (inputs.attack.isDown && isNotAttacking(character)) {
     character.attacking = true;
     character.play(ELEMENTALIST_ATTACK);
+    character.eventBus.emit(ELEMENTALIST_ATTACK, character);
     character.setVelocity(0, 0);
   } else if (inputs.justUp(inputs.utility) && isNotAttacking(character)) {
     character.attacking = true;

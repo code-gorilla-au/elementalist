@@ -8,7 +8,7 @@ import {
   setCamera,
   setControls,
 } from '@/lib/dungeon';
-import { ELEMENTALIST_WIND } from '@/lib/characters';
+import { ELEMENTALIST_WIND, BRINGER_OF_DEATH_HURT } from '@/lib/characters';
 import ElementalistWind, {
   elementalistWindAnimations,
   ElementalistWindAttack,
@@ -57,6 +57,13 @@ export default class DungeonScene extends Phaser.Scene {
     this.physics.add.collider(this.enemiesGroup, map.ground);
     this.physics.add.collider(this.character, this.enemiesGroup);
     this.physics.add.collider(this.characterSkillGroup, this.enemiesGroup);
+    this.physics.add.overlap(
+      this.characterSkillGroup,
+      this.enemiesGroup,
+      hurtEnemy,
+      undefined,
+      this,
+    );
   }
   update() {
     this.character.update();
@@ -67,4 +74,9 @@ export default class DungeonScene extends Phaser.Scene {
       enemy.update(this.character);
     });
   }
+}
+
+function hurtEnemy(...args: any[]) {
+  const [skill, enemy] = args;
+  enemy.emit(BRINGER_OF_DEATH_HURT);
 }
