@@ -45,6 +45,8 @@ export interface Character {
   attacking: boolean;
   speed: number;
   eventBus: Phaser.Events.EventEmitter;
+  x: number;
+  y: number;
   setFlipX(bool: boolean): this;
   update(): void;
   setVelocityY(y: number): this;
@@ -63,6 +65,13 @@ export interface Body {
     x: number;
     y: number;
   };
+}
+
+export interface Enemy {
+  x: number;
+  y: number;
+  scene: Phaser.Scene;
+  update(character: Character, enemy: Enemy): void;
 }
 
 export function combat(character: Character, inputs: InputControls) {

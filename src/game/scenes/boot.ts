@@ -6,6 +6,7 @@ import DungeonMap1 from '@/game/assets/dungeon.json';
 import TileSet1 from '@/game/assets/dungeon_tileset.png';
 import ElementalistWind from '@/game/assets/wind_sprite_sheet_224x112.png';
 import BringerOfDeath from '@/game/assets/bringer_of_death.png';
+import HitBox from '@/game/assets/shuruken.png';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
@@ -20,6 +21,7 @@ export default class BootScene extends Phaser.Scene {
     const centerX = width / 2;
     const centerY = height / 2;
 
+    this.load.image('hitBox', HitBox);
     this.load.image(TILE_SET_1, TileSet1);
     this.load.tilemapTiledJSON(LEVEL_1, DungeonMap1);
     this.load.spritesheet(ELEMENTALIST_WIND, ElementalistWind, {

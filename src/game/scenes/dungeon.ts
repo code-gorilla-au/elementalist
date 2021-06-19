@@ -64,7 +64,7 @@ export default class DungeonScene extends Phaser.Scene {
       skill.update();
     });
     this.enemiesGroup.getChildren().forEach((enemy) => {
-      enemy.update();
+      enemy.update(this.character);
     });
   }
 }
