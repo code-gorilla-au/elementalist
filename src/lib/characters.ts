@@ -74,7 +74,7 @@ export interface Enemy {
   update(character: Character, enemy: Enemy): void;
 }
 
-export function combat(character: Character, inputs: InputControls) {
+export function characterCombat(character: Character, inputs: InputControls) {
   if (inputs.attack.isDown && isNotAttacking(character)) {
     character.attacking = true;
     character.play(ELEMENTALIST_ATTACK);
@@ -96,7 +96,7 @@ export function combat(character: Character, inputs: InputControls) {
   }
 }
 
-export function movement(character: Character, inputs: InputControls) {
+export function characterMovement(character: Character, inputs: InputControls) {
   const isFalling = character.body.velocity.y > 0;
   const isJumping = character.body.velocity.y < 0;
   if (isFalling) {

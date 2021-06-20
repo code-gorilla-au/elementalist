@@ -12,6 +12,7 @@ export default class BringerOfDeath extends Phaser.Physics.Arcade.Sprite {
   private speed: number;
   private hurt: boolean;
   private strikeDistance: number;
+  private attacking: boolean;
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, BRINGER_OF_DEATH);
     scene.add.existing(this);
@@ -22,6 +23,7 @@ export default class BringerOfDeath extends Phaser.Physics.Arcade.Sprite {
     this.speed = 50;
     this.hurt = false;
     this.strikeDistance = 50;
+    this.attacking = false;
     this.on(BRINGER_OF_DEATH_HURT, () => {
       this.hurt = true;
       this.setVelocity(60, -50);
@@ -37,7 +39,7 @@ export default class BringerOfDeath extends Phaser.Physics.Arcade.Sprite {
   }
   private followCharacter(character: Character) {
     const distanceBetween = Phaser.Math.Distance.Between(character.x, character.y, this.x, this.y);
-    if (this.hurt) {
+    if (this.hurt || this.attacking) {
       return;
     }
     if (distanceBetween <= this.strikeDistance) {

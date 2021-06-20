@@ -8,8 +8,8 @@ import {
   ELEMENTALIST_ATTACK,
   ELEMENTALIST_DEFENCE,
   ELEMENTALIST_FALL,
-  movement,
-  combat,
+  characterMovement,
+  characterCombat,
   ELEMENTALIST_JUMP,
   handleAnimationComplete,
   ELEMENTALIST_UTILITY,
@@ -41,8 +41,8 @@ export default class ElementalistWind extends Phaser.Physics.Arcade.Sprite {
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, handleAnimationComplete(this));
   }
   update(...args: any[]) {
-    movement(this, this.inputs);
-    combat(this, this.inputs);
+    characterMovement(this, this.inputs);
+    characterCombat(this, this.inputs);
   }
 }
 
