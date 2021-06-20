@@ -71,7 +71,21 @@ export interface Enemy {
   x: number;
   y: number;
   scene: Phaser.Scene;
+  hurt: boolean;
+  attacking: boolean;
+  strikeDistance: number;
   update(character: Character, enemy: Enemy): void;
+  on(event: string | symbol, fn: Function, context?: any): this;
+  setFlipX(bool: boolean): this;
+  update(): void;
+  setVelocityY(y: number): this;
+  setVelocityX(x: number): this;
+  setVelocity(x: number, y: number): this;
+  play(
+    key: string | Phaser.Animations.Animation | Phaser.Types.Animations.PlayAnimationConfig,
+    ignoreIfPlaying?: boolean | undefined,
+  ): this;
+  body: Body;
 }
 
 export function characterCombat(character: Character, inputs: InputControls) {
