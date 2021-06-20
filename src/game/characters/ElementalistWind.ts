@@ -46,7 +46,7 @@ export default class ElementalistWind extends Phaser.Physics.Arcade.Sprite {
   }
 }
 
-export class ElementalistWindAttack extends Phaser.Physics.Arcade.Sprite {
+export class ElementalistWindAttack extends Phaser.Physics.Arcade.Image {
   evenBus: Phaser.Events.EventEmitter;
   character: Phaser.Physics.Arcade.Sprite;
   constructor(
